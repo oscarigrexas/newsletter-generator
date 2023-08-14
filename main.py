@@ -1,15 +1,20 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, render_template, request
+
+from newsletter import generate_newsletter, parse_textarea_input
+
+
 app = Flask(__name__)
 
 
-@app.route("/")
-def home():
-    return render_template("home.html")
-
-
-@app.route("/api/<data>")
-def api(data):
-    return jsonify({"message": "Successfully received client request for "+data+"."})
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        raw_link_text = request.form["links"]
+        links = parse_textarea_input(textarea=raw_link_text)
+        newsletter = generate_newsletter(links=links)
+        return render_template("index.html", newsletter=newsletter)
+    else:
+        return render_template("index.html")
 
 
 if __name__ == "__main__":
