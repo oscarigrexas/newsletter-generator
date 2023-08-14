@@ -46,10 +46,10 @@
             <div class="column">
                 <p>
                     {% for article in newsletter %}
-                        <b>{{ article["title"] }}</b><br>
-                        {{ article["description"] }}<br>
-                        <a href="{{article['url']}}"><i>{{ article["domain"] }}</i></a><br>
-                        <br>
+                    <b>{{ article["title"] }}</b><br>
+                    {{ article["description"] }}<br>
+                    <a href="{{article['url']}}"><i>{{ article["domain"] }}</i></a><br>
+                    <br>
                     {% endfor %}
                 </p>
             </div>
