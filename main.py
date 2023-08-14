@@ -9,10 +9,13 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        raw_link_text = request.form["links"]
-        links = parse_textarea_input(textarea=raw_link_text)
-        newsletter = generate_newsletter(links=links)
-        return render_template("index.html", newsletter=newsletter)
+        try:
+            raw_link_text = request.form["links"]
+            links = parse_textarea_input(textarea=raw_link_text)
+            newsletter = generate_newsletter(links=links)
+            return render_template("index.html", newsletter=newsletter)
+        except Exception as e:
+            return render_template("index.html")
     else:
         return render_template("index.html")
 
